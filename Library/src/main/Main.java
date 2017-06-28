@@ -7,11 +7,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		Guest guest = new Guest();
-		guest.showAvailableActions();
+	
 		// sign in or sign up
 		guest.inputData();
-
-		guest.performAction();
+		
 
 /*		guest.showAvailableActions();
 

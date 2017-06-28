@@ -5,62 +5,25 @@ import scanner.SingleWordInput;
 
 public class Guest implements IConsoleIOActions {
 
-	CurrentAction currentAction;
+	CurrentAction currentAction = CurrentAction.FIRST_ENTER;
 
-	public enum CurrentAction {
-		SIGNIN, SIGNUP, EXIT;
-	};
+	public boolean checkAndPerformInputedCommand(String command) {
 
-	@Override
-	public void setCurrentAction(CurrentAction action) {
-		currentAction = action;
-	}
+		try {
+			currentAction = CurrentAction.valueOf(command);
 
-	@Override
-	public void showAvailableActions() {
+			currentAction.showAvailableActions();
 
-		System.out.println("Available options are:");
-
-		int counterForOutput = 1;
-		for (CurrentAction ca : CurrentAction.values()) {
-
-			System.out.println(counterForOutput + ". " + ca.toString());
-			counterForOutput++;
+		} catch (IllegalArgumentException e) {
+			return false;
 		}
-
-	}
-
-	public boolean checkInputAndChangeAction(String command) {
-
-		switch (command) {
-		case "1":
-			this.setCurrentAction(CurrentAction.SIGNIN);
-			System.out.println("I am in SIGNIN case");
-			return true;
-
-		case "2":
-			this.setCurrentAction(CurrentAction.SIGNUP);
-			System.out.println("I am in SIGNUP case");
-			return true;
-
-		case "3":
-			this.setCurrentAction(CurrentAction.EXIT);
-			System.out.println("I am in EXIT case");
-			return true;
-
-		}
-		return false;
-
-	}
-
-	@Override
-	public void performAction() {
+		return true;
 
 	}
 
 	@Override
 	public void inputData() {
-
+		currentAction.showAvailableActions();
 		SingleWordInput swi = new SingleWordInput();
 		swi.askForCommand(this);
 
