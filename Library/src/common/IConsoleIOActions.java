@@ -1,12 +1,15 @@
 package common;
 
+import users.Guest.CurrentAction;
+
 public interface IConsoleIOActions {
-	void inputData();
-	boolean checkData();
-	boolean checkInputIsValid();
-	
-	void showAvailableActions();
-	String changeAction();
-	void performAction(String command);
-	
+	public void inputData();
+
+	public void showAvailableActions();
+
+	public void performAction();
+
+	public void setCurrentAction(CurrentAction action);
+
+	boolean checkInputAndChangeAction(String command);
 }
