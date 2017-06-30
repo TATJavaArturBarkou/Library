@@ -1,0 +1,12 @@
+package by.epam.barkou.dao;
+
+import by.epam.barkou.bean.User;
+import by.epam.barkou.dao.exception.DAOException;
+
+public interface IUserDAO {
+	void signIn(String login, char[] password) throws DAOException;
+
+	void registration(User user) throws DAOException;
+
+	void signOut(String login) throws DAOException;
+}
