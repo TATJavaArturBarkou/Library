@@ -1,5 +1,7 @@
 package by.epam.barkou.controller.command;
 
-public interface Command {
-public String execute(String request);
+public abstract class Command {
+	public int accessLevel;
+
+	public abstract String execute(String request);
 }

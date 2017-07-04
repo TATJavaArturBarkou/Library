@@ -35,10 +35,10 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public void registration(User user) throws ServiceException {
+	public void signUp(User user) throws ServiceException {
 		// check parameters, e.g. length, special symbols
 		try {
-			userDAO.registration(user);
+			userDAO.signUp(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

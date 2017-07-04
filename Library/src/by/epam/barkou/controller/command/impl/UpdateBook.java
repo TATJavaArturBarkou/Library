@@ -1,6 +1,5 @@
 package by.epam.barkou.controller.command.impl;
 
-import java.util.Arrays;
 
 import by.epam.barkou.bean.Book;
 import by.epam.barkou.controller.command.Command;
@@ -9,30 +8,33 @@ import by.epam.barkou.service.ILibraryService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class AddBook extends Command {
+public class UpdateBook extends Command {
 
+	String response = null;
+	int bookId = 1;
+	int bookName = 2;
+	int bookAvailability = 3;
 	public int accessLevel = 2;
-
 	@Override
 	public String execute(String request) {
 
 		String[] requestData = request.split("&");
 
-		Book book = new Book(requestData[1]);
-
-		String response = null;
-
+		
+		Book book = new Book(requestData[bookId], requestData[bookName],requestData[bookAvailability]);
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ILibraryService libraryService = factory.getLibraryService();
 
 		try {
-
-			libraryService.addNewBook(book);
+			
+		libraryService.updateBook(book);
 		} catch (ServiceException e) {
 			response = e.getMessage();
-			System.out.println("log: " + e.getMessage());
+			System.out.println("log: "+e.getMessage());
 			e.printStackTrace();
 		}
+
+	
 
 		// response of all operation
 		return response;

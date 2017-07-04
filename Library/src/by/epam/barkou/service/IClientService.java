@@ -8,6 +8,6 @@ public interface IClientService {
 
 	void signOut(String login) throws ServiceException;
 
-	void registration(User user) throws ServiceException;
+	void signUp(User user) throws ServiceException;
 
 }

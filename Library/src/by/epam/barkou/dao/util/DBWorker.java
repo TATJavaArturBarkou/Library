@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import by.epam.barkou.dao.exception.DAOException;
+
 public class DBWorker {
 	
 	//  оличество р€дов таблицы, затронутых последним запросом.
@@ -33,37 +35,36 @@ public class DBWorker {
 	}
 	
 	// ¬ыполнение запросов на выборку данных.
-	public ResultSet getDBData(String query)
+	public ResultSet getDBData (String query)throws DAOException
 	{
 		Statement statement;
 		Connection connect;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/phonebook?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/library?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci");
 			statement = connect.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			return resultSet;
 		}
 		catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
 		{
-			e.printStackTrace();
+			throw new DAOException(e.getMessage(),e);
+			
 		}
 		
-		System.out.println("null on getDBData()!");
-		return null;
 
 	}
 	
 	// ¬ыполнение запросов на модификацию данных.
-	public Integer changeDBData(String query)
+	public Integer changeDBData(String query)throws DAOException
 	{
 		Statement statement;
 		Connection connect;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/phonebook?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/library?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci");
 			statement = connect.createStatement();
 			this.affected_rows = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		
@@ -77,11 +78,14 @@ public class DBWorker {
 		}
 		catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
 		{
-			e.printStackTrace();
-		}
 		
-		System.out.println("null on changeDBData()!");
-		return null;
+			throw new DAOException(e.getMessage(),e);
+			
+			
+		}
+	
+
+
 	}
 
 //---------------------------------------------------------------

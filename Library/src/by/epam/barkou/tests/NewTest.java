@@ -13,7 +13,11 @@ public class NewTest {
   @DataProvider
   public Object[][] dp() {
     return new Object[][] {
+    	
       new Object[] { "add_book&Alice in Wonderland", "Here will be response" },
+      
+      new Object[] { "update_book&1&Alice&1", "Here will be response" },
+      
     };
   }
   

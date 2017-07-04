@@ -6,11 +6,11 @@ public class Main {
 
 	public static void main(String[] args) {
 
-	    String request = "add_book&Alice in Wonderland";
+	    String request = "sign_up&barkou@mail.ru&password";
 	
 
 		  Controller controller = new Controller();
-		  controller.executeTask(request);
+		  System.out.println("Response is: "+controller.executeTask(request));
 		
 		
 		

@@ -1,33 +1,31 @@
 package by.epam.barkou.controller.command.impl;
 
-import java.util.Arrays;
-
-import by.epam.barkou.bean.Book;
+import by.epam.barkou.bean.User;
 import by.epam.barkou.controller.command.Command;
+import by.epam.barkou.service.IClientService;
 
-import by.epam.barkou.service.ILibraryService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class AddBook extends Command {
+public class SignUp extends Command {
 
-	public int accessLevel = 2;
+	int email = 1;
+	int password = 2;
 
 	@Override
 	public String execute(String request) {
-
 		String[] requestData = request.split("&");
-
-		Book book = new Book(requestData[1]);
+		
+		User user = new User(requestData[email], requestData[password]);
 
 		String response = null;
 
 		ServiceFactory factory = ServiceFactory.getInstance();
-		ILibraryService libraryService = factory.getLibraryService();
+		IClientService clientService = factory.getClientService();
 
 		try {
 
-			libraryService.addNewBook(book);
+			clientService.signUp(user);
 		} catch (ServiceException e) {
 			response = e.getMessage();
 			System.out.println("log: " + e.getMessage());

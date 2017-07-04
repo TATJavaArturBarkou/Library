@@ -4,9 +4,24 @@ public class Book {
 
 	String idBook;
 	String name;
+	String availability;
 
 	public Book(String name) {
 		this.name = name;
+	}
+
+	public Book(String idBook, String name, String availability) {
+		this.name = name;
+		this.idBook = idBook;
+		this.availability = availability;
+	}
+
+	public String getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(String availability) {
+		this.availability = availability;
 	}
 
 	public String getIdBook() {

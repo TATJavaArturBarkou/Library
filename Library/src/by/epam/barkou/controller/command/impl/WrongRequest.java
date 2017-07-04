@@ -2,7 +2,7 @@ package by.epam.barkou.controller.command.impl;
 
 import by.epam.barkou.controller.command.Command;
 
-public class WrongRequest implements Command {
+public class WrongRequest extends Command {
 
 	@Override
 	public String execute(String request) {

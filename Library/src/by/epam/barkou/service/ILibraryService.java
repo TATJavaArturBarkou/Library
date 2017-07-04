@@ -6,5 +6,5 @@ import by.epam.barkou.service.exception.ServiceException;
 public interface ILibraryService {
 	void addNewBook(Book book) throws ServiceException;
 
-	void addEditedBook(Book book) throws ServiceException;
+	void updateBook(Book book) throws ServiceException;
 }

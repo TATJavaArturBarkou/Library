@@ -24,16 +24,24 @@ public class LibraryServiceImpl implements ILibraryService {
 			bookDAO.addBook(book);
 			
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		
 	
 	}
 
 	@Override
-	public void addEditedBook(Book book) throws ServiceException {
+	public void updateBook(Book book) throws ServiceException {
 		// check parameters, e.g. length, special symbols
-
+		if (book == null || book.getName().isEmpty()) {
+			throw new ServiceException("Incorrect book data");
+		}
+		try {
+			bookDAO.updateBook(book);
+			
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage());
+		}
 	}
 
 }

@@ -9,4 +9,6 @@ public interface IBookDAO {
 	void deleteBook(long idBook) throws DAOException;
 
 	void delete(Book book) throws DAOException;
+	
+	void updateBook(Book book) throws DAOException;
 }

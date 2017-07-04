@@ -2,6 +2,6 @@ package by.epam.barkou.controller.command;
 
 public enum CommandName {
 
-	SIGN_IN,REGISTRATION, ADD_BOOK, WRONG_REQUEST;
-	
+	SIGN_IN, SIGN_UP, ADD_BOOK, WRONG_REQUEST, UPDATE_BOOK;
+
 }
