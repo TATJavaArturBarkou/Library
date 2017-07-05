@@ -16,22 +16,22 @@ public class SQLUserDAO implements IUserDAO {
 	}
 
 	@Override
-	public void signUp(User user) throws DAOException {
+	public String signUp(User user) throws DAOException {
 		this.user = user;
 
 		String query;
 
-		query = "INSERT INTO `users` (`email`,`password`) VALUES ('" + user.getEmail() + "')";
+		query = "INSERT INTO `users` (`email`,`password`) VALUES ('" + user.getEmail() + "', '" + user.getPassword()
+				+ "')";
 
 		Integer affected_rows = this.db.changeDBData(query);
 
-		// Если добавление прошло успешно...
 		if (affected_rows > 0) {
 			//
 		} else {
-			// throw exception
+			throw new DAOException("Error while making sql operation");
 		}
-
+		return "User is registred successfully";
 	}
 
 	@Override

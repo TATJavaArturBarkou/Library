@@ -19,11 +19,11 @@ public class SQLBookDAO implements IBookDAO {
 
 		Integer affected_rows = this.db.changeDBData(query);
 
-		// Если добавление прошло успешно...
+
 		if (affected_rows > 0) {
-			//
+
 		} else {
-			// throw exception
+			throw new DAOException("Error while making sql operation");
 		}
 
 	}
@@ -40,11 +40,11 @@ public class SQLBookDAO implements IBookDAO {
 
 		Integer affected_rows = this.db.changeDBData(query);
 
-		// Если добавление прошло успешно...
+
 		if (affected_rows > 0) {
 			//
 		} else {
-			// throw exception
+			throw new DAOException("Error while making sql operation");
 		}
 
 	}

@@ -17,7 +17,9 @@ public class NewTest {
       new Object[] { "add_book&Alice in Wonderland", "Here will be response" },
       
       new Object[] { "update_book&1&Alice&1", "Here will be response" },
+      new Object[] { "sign_up&barkou@mail.ru&password", "User is registred successfully" },
       
+
     };
   }
   
