@@ -34,10 +34,17 @@ public class UpdateBook extends Command {
 			e.printStackTrace();
 		}
 
-	
-
-		// response of all operation
 		return response;
 	}
+	@Override
+	public int getAccessLevel() {
 
+		return this.accessLevel;
+	}
+
+	@Override
+	public void setAccessLevel(int accessLevel) {
+		this.accessLevel = accessLevel;
+		
+	}
 }

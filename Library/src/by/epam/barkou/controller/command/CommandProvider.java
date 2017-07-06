@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.epam.barkou.controller.command.impl.AddBook;
+import by.epam.barkou.controller.command.impl.GetAllAvailableBooks;
+import by.epam.barkou.controller.command.impl.ShowProfile;
 import by.epam.barkou.controller.command.impl.SignUp;
 import by.epam.barkou.controller.command.impl.SignIn;
 import by.epam.barkou.controller.command.impl.UpdateBook;
+import by.epam.barkou.controller.command.impl.UpdateProfile;
 import by.epam.barkou.controller.command.impl.WrongRequest;
 
 public class CommandProvider {
@@ -18,6 +21,9 @@ public class CommandProvider {
 		repositiry.put(CommandName.ADD_BOOK, new AddBook());
 		repositiry.put(CommandName.WRONG_REQUEST, new WrongRequest());
 		repositiry.put(CommandName.UPDATE_BOOK, new UpdateBook());
+		repositiry.put(CommandName.GET_ALL_AVAILABLE_BOOKS, new GetAllAvailableBooks());
+		repositiry.put(CommandName.SHOW_PROFILE, new ShowProfile());
+		repositiry.put(CommandName.UPDATE_PROFILE, new UpdateProfile());
 	}
 
 	public Command getCommand(String name) {

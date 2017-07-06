@@ -28,14 +28,24 @@ public class AddBook extends Command {
 		try {
 
 			libraryService.addNewBook(book);
+			response = "Book has been added";
+
 		} catch (ServiceException e) {
 			response = e.getMessage();
 			System.out.println("log: " + e.getMessage());
 			e.printStackTrace();
 		}
-
-		// response of all operation
 		return response;
 	}
 
+	@Override
+	public int getAccessLevel() {
+		return this.accessLevel;
+	}
+
+	@Override
+	public void setAccessLevel(int accessLevel) {
+		this.accessLevel = accessLevel;
+
+	}
 }

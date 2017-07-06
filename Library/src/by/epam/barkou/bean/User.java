@@ -2,21 +2,34 @@ package by.epam.barkou.bean;
 
 public class User {
 
-	int id;
+	String id;
 	String email;
 	String password;
 	int role;
 
-	public User(String email, String requestData) {
+	public User(String email, String password) {
 		this.email = email;
-		this.password = requestData;
+		this.password = password;
 	}
 
-	public int getId() {
+	public User(String id, String email, String password, int role) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+
+	public User(String id, String email, String password) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

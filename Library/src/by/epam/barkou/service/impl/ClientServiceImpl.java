@@ -10,18 +10,20 @@ import by.epam.barkou.service.exception.ServiceException;
 public class ClientServiceImpl implements IClientService {
 	DAOFactory daoObjectFactory = DAOFactory.getInstance();
 	IUserDAO userDAO = daoObjectFactory.getUserDAO();
-
+	User user;
 	@Override
-	public void signIn(String login, char[] password) throws ServiceException {
+	public User signIn(String login, String password) throws ServiceException {
 		// check parameters, e.g. length, special symbols
+		
 		if (login == null || login.isEmpty()) {
 			throw new ServiceException("Incorrect login");
 		}
 		try {
-			userDAO.signIn(login, password);
+			 user = userDAO.signIn(login, password);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+		return user;
 	}
 
 	@Override
@@ -40,6 +42,18 @@ public class ClientServiceImpl implements IClientService {
 		String response;
 		try {
 			response = userDAO.signUp(user);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return response;
+	}
+
+	@Override
+	public String updateProfile(User user) throws ServiceException {
+		// check parameters, e.g. length, special symbols
+		String response;
+		try {
+			response = userDAO.updateProfile(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
