@@ -1,39 +1,26 @@
 package by.epam.barkou.controller.command.impl;
 
-import by.epam.barkou.bean.User;
-import by.epam.barkou.controller.Controller;
 import by.epam.barkou.controller.command.Command;
 import by.epam.barkou.controller.exception.ControllerException;
-import by.epam.barkou.controller.security.Encryptor;
-
 import by.epam.barkou.service.IClientService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class UpdateProfile extends Command {
+public class SetUserBanned extends Command{
 
-	public int accessLevel = 1;
-	int email = 1;
-	int password = 2;
+	public int accessLevel = 2;
+	int userId = 1;
+	int bannedValue = 2;
 	String response = null;
 
 	@Override
 	public String execute(String request) throws ControllerException {
 		String[] requestData = request.split("&");
 
-		String encryptedPassword = Encryptor.encrypt(requestData[password]);
-
-		User user = new User(Controller.authorized_users.get(0).getId(),requestData[email], encryptedPassword);
-		
 		try {
-
 				ServiceFactory factory = ServiceFactory.getInstance();
 				IClientService clientService = factory.getClientService();
-				response = clientService.updateProfile(user);
-				
-				Controller.authorized_users.clear();
-				user = clientService.signIn(requestData[email], encryptedPassword);
-				Controller.authorized_users.add(user);
+				response = clientService.setUserBanned(requestData[userId],requestData[bannedValue]);
 				
 		} catch (ServiceException e) {
 			response = e.getMessage();

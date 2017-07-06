@@ -76,4 +76,36 @@ public class SQLUserDAO implements IUserDAO {
 		return "User is updated successfully";
 	}
 
+	@Override
+	public String addAdminRights(String string) throws DAOException {
+		String query;
+
+		query = "UPDATE `users` SET `role` = '2' WHERE `id` = " + Integer.parseInt(string);
+
+		Integer affected_rows = this.db.changeDBData(query);
+
+		if (affected_rows > 0) {
+			
+		} else {
+			throw new DAOException("Error while making sql operation");
+		}
+		return "User rights are updated successfully";
+	}
+
+	@Override
+	public String setUserBanned(String id, String bannedValue) throws DAOException {
+		String query;
+
+		query = "UPDATE `users` SET `banned` = '" + Integer.parseInt(bannedValue) + "' WHERE `id` = " + Integer.parseInt(id);
+
+		Integer affected_rows = this.db.changeDBData(query);
+
+		if (affected_rows > 0) {
+			
+		} else {
+			throw new DAOException("Error while making sql operation");
+		}
+		return "User is updated successfully";
+	}
+
 }

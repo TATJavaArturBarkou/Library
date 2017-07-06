@@ -10,5 +10,9 @@ public interface IUserDAO {
 
 	void signOut(String login) throws DAOException;
 
-	String updateProfile(User user)throws DAOException;
+	String updateProfile(User user) throws DAOException;
+
+	String addAdminRights(String string) throws DAOException;
+
+	String setUserBanned(String id, String bannedValue) throws DAOException;
 }

@@ -12,4 +12,8 @@ public interface IClientService {
 
 	String updateProfile(User user) throws ServiceException;
 
+	String addAdminRights(String string) throws ServiceException;
+
+	String setUserBanned(String string, String string2)throws ServiceException;
+
 }

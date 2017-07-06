@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("Response is: " + controller.executeTask(request));
 
 		
-		 request = "update_profile&barkou@mail.ru&password";
+		 request = "set_user_banned&1&1";
 		 controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));
 

@@ -60,4 +60,26 @@ public class ClientServiceImpl implements IClientService {
 		return response;
 	}
 
+	@Override
+	public String addAdminRights(String id) throws ServiceException {
+		String response;
+		try {
+			response = userDAO.addAdminRights(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return response;
+	}
+
+	@Override
+	public String setUserBanned(String id, String bannedValue) throws ServiceException {
+		String response;
+		try {
+			response = userDAO.setUserBanned(id, bannedValue);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return response;
+	}
+
 }
