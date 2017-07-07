@@ -3,6 +3,7 @@ package by.epam.barkou.service;
 import java.util.ArrayList;
 
 import by.epam.barkou.bean.Book;
+import by.epam.barkou.bean.Order;
 import by.epam.barkou.service.exception.ServiceException;
 
 public interface ILibraryService {
@@ -10,5 +11,7 @@ public interface ILibraryService {
 
 	void updateBook(Book book) throws ServiceException;
 
-	ArrayList<Book> getAllAvailableBooks()throws ServiceException;
+	ArrayList<Book> getAllAvailableBooks() throws ServiceException;
+
+	
 }

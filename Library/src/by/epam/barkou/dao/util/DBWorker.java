@@ -42,7 +42,7 @@ public class DBWorker {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/library?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/library?user=root&password=root&useUnicode=true&characterEncoding=UTF-8&characterSetResults=utf8&connectionCollation=utf8_general_ci&");
 			statement = connect.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			return resultSet;

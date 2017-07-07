@@ -6,6 +6,7 @@ import java.util.Map;
 import by.epam.barkou.controller.command.impl.AddAdminRights;
 import by.epam.barkou.controller.command.impl.AddBook;
 import by.epam.barkou.controller.command.impl.GetAllAvailableBooks;
+import by.epam.barkou.controller.command.impl.OrderBook;
 import by.epam.barkou.controller.command.impl.SetUserBanned;
 import by.epam.barkou.controller.command.impl.ShowProfile;
 import by.epam.barkou.controller.command.impl.SignUp;
@@ -28,6 +29,7 @@ public class CommandProvider {
 		repositiry.put(CommandName.UPDATE_PROFILE, new UpdateProfile());
 		repositiry.put(CommandName.ADD_ADMIN_RIGHTS, new AddAdminRights());
 		repositiry.put(CommandName.SET_USER_BANNED, new SetUserBanned());
+		repositiry.put(CommandName.ORDER_BOOK, new OrderBook());
 	}
 
 	public Command getCommand(String name) {

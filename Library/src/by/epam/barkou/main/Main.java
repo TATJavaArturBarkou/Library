@@ -10,12 +10,12 @@ public class Main {
 		Controller controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));*/
 		
-		String request = "sign_in&barkou@mail.ru2&password2";
+		String request = "sign_in&barkou@mail.ru&password";
 		Controller controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));
-
 		
-		 request = "set_user_banned&1&1";
+	
+		 request = "order_book&1";
 		 controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));
 
