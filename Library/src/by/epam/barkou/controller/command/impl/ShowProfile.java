@@ -7,27 +7,22 @@ import by.epam.barkou.controller.exception.ControllerException;
 
 
 public class ShowProfile extends Command {
-	User user;
-	public int accessLevel = 1;
-
-	String response = null;
+	private User user;
+	private final int ACCESS_LEVEL = 1;
+	private final int FIRST_USER = 0;
 
 	@Override
 	public String execute(String request) throws ControllerException {
 
-		user = Controller.authorized_users.get(0);
+		user = Controller.authorized_users.get(FIRST_USER);
 		return user.getEmail();
 
 	}
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-		
-	}
+
 }

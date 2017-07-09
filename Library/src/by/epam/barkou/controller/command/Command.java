@@ -4,11 +4,9 @@ import by.epam.barkou.controller.exception.ControllerException;
 
 public abstract class Command {
 
-	int accessLevel;
-
+	private final int ACCESS_LEVEL = 0;
+	protected final String SPLITTER = "&";
 	public abstract int getAccessLevel();
-
-	public abstract void setAccessLevel(int accessLevel);
 
 	public abstract String execute(String request) throws ControllerException;
 }

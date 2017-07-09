@@ -10,24 +10,24 @@ import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
 public class SignIn extends Command {
-	User user;
-	public int accessLevel = 0;
-	int email = 1;
-	int password = 2;
-	String response = null;
+	private User user;
+	private final int ACCESS_LEVEL = 0;
+	private final int EMAIL = 1;
+	private final int PASSWORD = 2;
+	private String response = null;
 
 	@Override
 	public String execute(String request) throws ControllerException {
-		String[] requestData = request.split("&");
+		String[] requestData = request.split(SPLITTER);
 
-		String encryptedPassword = Encryptor.encrypt(requestData[password]);
+		String encryptedPassword = Encryptor.encrypt(requestData[PASSWORD]);
 
 		ServiceFactory factory = ServiceFactory.getInstance();
 		IClientService clientService = factory.getClientService();
 
 		try {
 
-			user = clientService.signIn(requestData[email], encryptedPassword);
+			user = clientService.signIn(requestData[EMAIL], encryptedPassword);
 
 			if (user != null) {
 				Controller.authorized_users.add(user);
@@ -37,7 +37,7 @@ public class SignIn extends Command {
 			}
 
 		} catch (ServiceException e) {
-			response = e.getMessage();
+			response = "Unable to sign in";
 			System.out.println("log: " + e.getMessage());
 		}
 		return response;
@@ -45,13 +45,8 @@ public class SignIn extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-
-	}
 
 }

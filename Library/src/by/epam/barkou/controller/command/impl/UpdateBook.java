@@ -1,6 +1,5 @@
 package by.epam.barkou.controller.command.impl;
 
-
 import by.epam.barkou.bean.Book;
 import by.epam.barkou.controller.command.Command;
 
@@ -10,41 +9,36 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class UpdateBook extends Command {
 
-	String response = null;
-	int bookId = 1;
-	int bookName = 2;
-	int bookAvailability = 3;
-	public int accessLevel = 2;
+	private String response = null;
+	private final int BOOK_ID = 1;
+	private final int BOOK_NAME = 2;
+	private final int BOOK_AVAILABILITY = 3;
+	private final int ACCESS_LEVEL = 2;
+
 	@Override
 	public String execute(String request) {
 
-		String[] requestData = request.split("&");
+		String[] requestData = request.split(SPLITTER);
 
-		
-		Book book = new Book(requestData[bookId], requestData[bookName],requestData[bookAvailability]);
+		Book book = new Book(requestData[BOOK_ID], requestData[BOOK_NAME], requestData[BOOK_AVAILABILITY]);
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ILibraryService libraryService = factory.getLibraryService();
 
 		try {
-			
-		libraryService.updateBook(book);
+
+			libraryService.updateBook(book);
 		} catch (ServiceException e) {
-			response = e.getMessage();
-			System.out.println("log: "+e.getMessage());
-			e.printStackTrace();
+			response = "Unable to update book";
+			System.out.println("log: " + e.getMessage());
 		}
 
 		return response;
 	}
+
 	@Override
 	public int getAccessLevel() {
 
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-		
-	}
 }

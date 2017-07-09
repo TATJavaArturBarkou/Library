@@ -1,4 +1,4 @@
-package by.epam.barkou.tests;
+package by.epam.barkou.test;
 
 
 import org.testng.annotations.Test;

@@ -1,10 +1,13 @@
 package by.epam.barkou.bean;
 
-public class Book {
+import java.io.Serializable;
 
-	String idBook;
-	String name;
-	String availability;
+public class Book implements Serializable {
+
+	private static final long serialVersionUID = -8225452666387003759L;
+	private String idBook;
+	private String name;
+	private String availability;
 
 	public Book(String name) {
 		this.name = name;

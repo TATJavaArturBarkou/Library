@@ -4,7 +4,7 @@ import by.epam.barkou.controller.command.Command;
 
 public class WrongRequest extends Command {
 
-	int accessLevel = 0;
+	private final int ACCESS_LEVEL = 0;
 
 	@Override
 	public String execute(String request) {
@@ -13,12 +13,7 @@ public class WrongRequest extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-
-	}
 }

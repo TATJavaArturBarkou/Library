@@ -12,18 +12,19 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class UpdateProfile extends Command {
 
-	public int accessLevel = 1;
-	int email = 1;
-	int password = 2;
-	String response = null;
-
+	private final int ACCESS_LEVEL = 1;
+	private final int EMAIL = 1;
+	private final int PASSWORD = 2;
+	private String response = null;
+	private final int FIRST_USER = 0;
+	
 	@Override
 	public String execute(String request) throws ControllerException {
-		String[] requestData = request.split("&");
+		String[] requestData = request.split(SPLITTER);
 
-		String encryptedPassword = Encryptor.encrypt(requestData[password]);
+		String encryptedPassword = Encryptor.encrypt(requestData[PASSWORD]);
 
-		User user = new User(Controller.authorized_users.get(0).getId(),requestData[email], encryptedPassword);
+		User user = new User(Controller.authorized_users.get(FIRST_USER).getId(),requestData[EMAIL], encryptedPassword);
 		
 		try {
 
@@ -32,11 +33,11 @@ public class UpdateProfile extends Command {
 				response = clientService.updateProfile(user);
 				
 				Controller.authorized_users.clear();
-				user = clientService.signIn(requestData[email], encryptedPassword);
+				user = clientService.signIn(requestData[EMAIL], encryptedPassword);
 				Controller.authorized_users.add(user);
 				
 		} catch (ServiceException e) {
-			response = e.getMessage();
+			response = "Unable to update profile";
 			System.out.println("log: " + e.getMessage());
 		}
 
@@ -45,12 +46,7 @@ public class UpdateProfile extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-
-	}
 }

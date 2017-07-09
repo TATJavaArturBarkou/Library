@@ -1,6 +1,5 @@
 package by.epam.barkou.controller.command.impl;
 
-
 import by.epam.barkou.bean.Order;
 import by.epam.barkou.controller.Controller;
 import by.epam.barkou.controller.command.Command;
@@ -8,19 +7,20 @@ import by.epam.barkou.service.IOrderService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class OrderBook extends Command{
+public class OrderBook extends Command {
 
-	public int accessLevel = 1;
-	public int bookId = 1;
+	private final int ACCESS_LEVEL = 1;
+	private final int BOOK_ID = 1;
+	
+	private final int FIRST_USER = 0;
+	private String response = null;
 
 	@Override
 	public String execute(String request) {
 
-		String[] requestData = request.split("&");
+		String[] requestData = request.split(SPLITTER);
 
-		Order order = new Order(Controller.authorized_users.get(0).getId(),requestData[bookId]);
-
-		String response = null;
+		Order order = new Order(Controller.authorized_users.get(FIRST_USER).getId(), requestData[BOOK_ID]);
 
 		ServiceFactory factory = ServiceFactory.getInstance();
 		IOrderService iOrderService = factory.getIOrderService();
@@ -31,21 +31,15 @@ public class OrderBook extends Command{
 			response = "Book has been ordered";
 
 		} catch (ServiceException e) {
-			response = e.getMessage();
+			response = "Unable to order book";
 			System.out.println("log: " + e.getMessage());
-			e.printStackTrace();
 		}
 		return response;
 	}
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-
-	}
 }

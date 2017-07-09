@@ -10,8 +10,8 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class GetAllAvailableBooks extends Command {
 
-	String response = null;
-	public int accessLevel = 0;
+	private String response = null;
+	private final int ACCESS_LEVEL = 0;
 
 	@Override
 	public String execute(String request) {
@@ -23,29 +23,24 @@ public class GetAllAvailableBooks extends Command {
 		try {
 
 			bookList = libraryService.getAllAvailableBooks();
-			
-			for(Book book:bookList){
+
+			for (Book book : bookList) {
 				responseBuilder.append(book.getName());
-				responseBuilder.append("&");
+				responseBuilder.append(SPLITTER);
 			}
-			
-			
+			response = responseBuilder.toString();
+
 		} catch (ServiceException e) {
-			response = e.getMessage();
+			response = "Unable to get available books";
 			System.out.println("log: " + e.getMessage());
-			e.printStackTrace();
 		}
 
-		return responseBuilder.toString();
-	}
-	@Override
-	public int getAccessLevel() {
-		return this.accessLevel;
+		return response;
 	}
 
 	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-		
+	public int getAccessLevel() {
+		return this.ACCESS_LEVEL;
 	}
+
 }

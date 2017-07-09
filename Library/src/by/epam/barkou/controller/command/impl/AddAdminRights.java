@@ -6,24 +6,23 @@ import by.epam.barkou.service.IClientService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class AddAdminRights extends Command{
+public class AddAdminRights extends Command {
 
-	public int accessLevel = 2;
-	int userId = 1;
-
-	String response = null;
+	private final int ACCESS_LEVEL = 2;
+	private final int USER_ID = 1;
+	private String response = null;
 
 	@Override
 	public String execute(String request) throws ControllerException {
-		String[] requestData = request.split("&");
+		String[] requestData = request.split(SPLITTER);
 
 		try {
-				ServiceFactory factory = ServiceFactory.getInstance();
-				IClientService clientService = factory.getClientService();
-				response = clientService.addAdminRights(requestData[userId]);
-				
+			ServiceFactory factory = ServiceFactory.getInstance();
+			IClientService clientService = factory.getClientService();
+			response = clientService.addAdminRights(requestData[USER_ID]);
+
 		} catch (ServiceException e) {
-			response = e.getMessage();
+			response = "Not able to add admin rights";
 			System.out.println("log: " + e.getMessage());
 		}
 
@@ -32,12 +31,7 @@ public class AddAdminRights extends Command{
 
 	@Override
 	public int getAccessLevel() {
-		return this.accessLevel;
+		return this.ACCESS_LEVEL;
 	}
 
-	@Override
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-
-	}
 }
