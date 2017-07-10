@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import by.epam.barkou.bean.Book;
 import by.epam.barkou.dao.IBookDAO;
 import by.epam.barkou.dao.exception.DAOException;
-import by.epam.barkou.dao.newUtil.SQLConnection;
+import by.epam.barkou.dao.util.SQLConnection;
 
 public class SQLBookDAO implements IBookDAO {
 	
-	private final static String SQL_ADD_BOOK = "insert into books (name) values (?)";
-	private final static String SQL_UPDATE_BOOK = "update books set name=?, availability=? where id=?";
-	private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT id, name, availability FROM books where availability=1";
+	private final static String SQL_ADD_BOOK = "INSERT INTO books (name) VALUES (?)";
+	private final static String SQL_UPDATE_BOOK = "UPDATE books SET name=?, availability=? WHERE id=?";
+	private static final String GET_ALL_AVAILABLE_BOOKS = "SELECT id, name, availability FROM books WHERE availability=1";
 	
 	private SQLConnection sqlConnection = SQLConnection.getInstance();
 

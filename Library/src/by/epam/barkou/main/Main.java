@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("Response is: " + controller.executeTask(request));
 		
 	
-		 request = "get_all_available_books&";
+		 request = "order_book&1";
 		 controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));
 

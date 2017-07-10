@@ -11,7 +11,7 @@ public class OrderBook extends Command {
 
 	private final int accessLevel = 1;
 	private final int bookId = 1;
-	
+
 	private final int firstUser = 0;
 	private String response = null;
 
@@ -19,7 +19,7 @@ public class OrderBook extends Command {
 	public String execute(String request) {
 
 		String[] requestData = request.split(SPLITTER);
-		String userId= Controller.authorized_users.get(firstUser).getId();
+		String userId = Controller.authorized_users.get(firstUser).getId();
 		Order order = new Order(userId, requestData[bookId]);
 
 		ServiceFactory factory = ServiceFactory.getInstance();

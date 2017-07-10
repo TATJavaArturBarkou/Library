@@ -1,4 +1,4 @@
-package by.epam.barkou.dao.newUtil;
+package by.epam.barkou.dao.util;
 
 
 import java.sql.Connection;

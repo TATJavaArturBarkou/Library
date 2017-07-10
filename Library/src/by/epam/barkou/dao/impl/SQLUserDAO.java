@@ -8,17 +8,17 @@ import java.sql.SQLException;
 import by.epam.barkou.bean.User;
 import by.epam.barkou.dao.IUserDAO;
 import by.epam.barkou.dao.exception.DAOException;
-import by.epam.barkou.dao.newUtil.SQLConnection;
+import by.epam.barkou.dao.util.SQLConnection;
 
 public class SQLUserDAO implements IUserDAO {
 
 	private SQLConnection sqlConnection = SQLConnection.getInstance();
 
-	private final static String SQL_SIGN_IN = "SELECT id, email, password, role, banned FROM users where email=? and password=?";
-	private final static String SQL_SIGN_UP = "INSERT INTO users (email, password) values (?,?)";
-	private final static String SQL_UPDATE_PROFILE = "UPDATE users SET email=?, password=? where id=?";
-	private final static String SQL_ADD_ADMIN_RIGHTS = "UPDATE users SET role=2 where id=?";
-	private final static String SQL_SET_BANNED = "UPDATE users SET banned=? where id=?";
+	private final static String SQL_SIGN_IN = "SELECT id, email, password, role, banned FROM users WHERE email=? and password=?";
+	private final static String SQL_SIGN_UP = "INSERT INTO users (email, password) VALUES (?,?)";
+	private final static String SQL_UPDATE_PROFILE = "UPDATE users SET email=?, password=? WHERE id=?";
+	private final static String SQL_ADD_ADMIN_RIGHTS = "UPDATE users SET role=2 WHERE id=?";
+	private final static String SQL_SET_BANNED = "UPDATE users SET banned=? WHERE id=?";
 
 
 	
