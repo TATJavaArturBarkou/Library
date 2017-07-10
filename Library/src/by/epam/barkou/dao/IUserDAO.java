@@ -6,13 +6,11 @@ import by.epam.barkou.dao.exception.DAOException;
 public interface IUserDAO {
 	User signIn(String login, String password) throws DAOException;
 
-	String signUp(User user) throws DAOException;
+	void signUp(User user) throws DAOException;
 
-	void signOut(String login) throws DAOException;
+	void updateProfile(User user) throws DAOException;
 
-	String updateProfile(User user) throws DAOException;
+	void addAdminRights(String string) throws DAOException;
 
-	String addAdminRights(String string) throws DAOException;
-
-	String setUserBanned(String id, String bannedValue) throws DAOException;
+	void setUserBanned(String id, String bannedValue) throws DAOException;
 }

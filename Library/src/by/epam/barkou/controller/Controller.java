@@ -17,7 +17,8 @@ public class Controller {
 	public String executeTask(String request) {
 
 		String command;
-		command = request.substring(0, request.indexOf(paramDelimert));
+		int beginIndex = 0;
+		command = request.substring(beginIndex, request.indexOf(paramDelimert));
 
 		String response = null;
 

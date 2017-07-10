@@ -8,8 +8,8 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class AddAdminRights extends Command {
 
-	private final int ACCESS_LEVEL = 2;
-	private final int USER_ID = 1;
+	private final int accessLevel = 2;
+	private final int userId = 1;
 	private String response = null;
 
 	@Override
@@ -19,8 +19,9 @@ public class AddAdminRights extends Command {
 		try {
 			ServiceFactory factory = ServiceFactory.getInstance();
 			IClientService clientService = factory.getClientService();
-			response = clientService.addAdminRights(requestData[USER_ID]);
-
+			clientService.addAdminRights(requestData[userId]);
+			response = "User rights are updated successfully";
+					
 		} catch (ServiceException e) {
 			response = "Not able to add admin rights";
 			System.out.println("log: " + e.getMessage());
@@ -31,7 +32,7 @@ public class AddAdminRights extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

@@ -12,30 +12,34 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class UpdateProfile extends Command {
 
-	private final int ACCESS_LEVEL = 1;
-	private final int EMAIL = 1;
-	private final int PASSWORD = 2;
+	private final int accessLevel = 1;
+	private final int email = 1;
+	private final int password = 2;
 	private String response = null;
-	private final int FIRST_USER = 0;
-	
+	private final int firstUser = 0;
+
 	@Override
 	public String execute(String request) throws ControllerException {
 		String[] requestData = request.split(SPLITTER);
 
-		String encryptedPassword = Encryptor.encrypt(requestData[PASSWORD]);
+		String encryptedPassword = Encryptor.encrypt(requestData[password]);
 
-		User user = new User(Controller.authorized_users.get(FIRST_USER).getId(),requestData[EMAIL], encryptedPassword);
-		
+		String userId = Controller.authorized_users.get(firstUser).getId();
+
+		User user = new User(userId, requestData[email], encryptedPassword);
+
 		try {
 
-				ServiceFactory factory = ServiceFactory.getInstance();
-				IClientService clientService = factory.getClientService();
-				response = clientService.updateProfile(user);
-				
-				Controller.authorized_users.clear();
-				user = clientService.signIn(requestData[EMAIL], encryptedPassword);
-				Controller.authorized_users.add(user);
-				
+			ServiceFactory factory = ServiceFactory.getInstance();
+			IClientService clientService = factory.getClientService();
+
+			clientService.updateProfile(user);
+
+			Controller.authorized_users.clear();
+			user = clientService.signIn(requestData[email], encryptedPassword);
+			Controller.authorized_users.add(user);
+			
+			response = "User is updated successfully";
 		} catch (ServiceException e) {
 			response = "Unable to update profile";
 			System.out.println("log: " + e.getMessage());
@@ -46,7 +50,7 @@ public class UpdateProfile extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

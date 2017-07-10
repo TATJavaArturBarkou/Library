@@ -11,12 +11,15 @@ public class ClientServiceImpl implements IClientService {
 	DAOFactory daoObjectFactory = DAOFactory.getInstance();
 	IUserDAO userDAO = daoObjectFactory.getUserDAO();
 	User user;
+	
+	private final static String ERROR_INCORRECT_LOGIN = "Incorrect login";
+	
 	@Override
 	public User signIn(String login, String password) throws ServiceException {
 		// check parameters, e.g. length, special symbols
 		
 		if (login == null || login.isEmpty()) {
-			throw new ServiceException("Incorrect login");
+			throw new ServiceException(ERROR_INCORRECT_LOGIN);
 		}
 		try {
 			 user = userDAO.signIn(login, password);
@@ -26,60 +29,49 @@ public class ClientServiceImpl implements IClientService {
 		return user;
 	}
 
+
 	@Override
-	public void signOut(String login) throws ServiceException {
+	public void signUp(User user) throws ServiceException {
 		// check parameters, e.g. length, special symbols
 		try {
-			userDAO.signOut(login);
+			userDAO.signUp(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+		
 	}
 
 	@Override
-	public String signUp(User user) throws ServiceException {
+	public void updateProfile(User user) throws ServiceException {
 		// check parameters, e.g. length, special symbols
-		String response;
+	
 		try {
-			response = userDAO.signUp(user);
+			userDAO.updateProfile(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		return response;
+		
 	}
 
 	@Override
-	public String updateProfile(User user) throws ServiceException {
-		// check parameters, e.g. length, special symbols
-		String response;
+	public void addAdminRights(String id) throws ServiceException {
 		try {
-			response = userDAO.updateProfile(user);
+			userDAO.addAdminRights(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		return response;
+		
 	}
 
 	@Override
-	public String addAdminRights(String id) throws ServiceException {
-		String response;
+	public void setUserBanned(String id, String bannedValue) throws ServiceException {
+	
 		try {
-			response = userDAO.addAdminRights(id);
+			userDAO.setUserBanned(id, bannedValue);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		return response;
-	}
-
-	@Override
-	public String setUserBanned(String id, String bannedValue) throws ServiceException {
-		String response;
-		try {
-			response = userDAO.setUserBanned(id, bannedValue);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-		return response;
+	
 	}
 
 }

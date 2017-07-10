@@ -11,7 +11,7 @@ import by.epam.barkou.service.factory.ServiceFactory;
 public class GetAllAvailableBooks extends Command {
 
 	private String response = null;
-	private final int ACCESS_LEVEL = 0;
+	private final int accessLevel = 0;
 
 	@Override
 	public String execute(String request) {
@@ -40,7 +40,7 @@ public class GetAllAvailableBooks extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

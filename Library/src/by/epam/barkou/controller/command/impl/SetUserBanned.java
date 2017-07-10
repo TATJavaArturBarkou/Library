@@ -6,11 +6,11 @@ import by.epam.barkou.service.IClientService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class SetUserBanned extends Command{
+public class SetUserBanned extends Command {
 
-	private final int ACCESS_LEVEL = 2;
-	private final int USER_ID = 1;
-	private final int BANNED_VALUE = 2;
+	private final int accessLevel = 2;
+	private final int userId = 1;
+	private final int bannedValue = 2;
 	private String response = null;
 
 	@Override
@@ -18,10 +18,12 @@ public class SetUserBanned extends Command{
 		String[] requestData = request.split(SPLITTER);
 
 		try {
-				ServiceFactory factory = ServiceFactory.getInstance();
-				IClientService clientService = factory.getClientService();
-				response = clientService.setUserBanned(requestData[USER_ID],requestData[BANNED_VALUE]);
-				
+			ServiceFactory factory = ServiceFactory.getInstance();
+			IClientService clientService = factory.getClientService();
+
+			clientService.setUserBanned(requestData[userId], requestData[bannedValue]);
+			
+			response = "User is updated successfully";
 		} catch (ServiceException e) {
 			response = "Unable ban/unban user";
 			System.out.println("log: " + e.getMessage());
@@ -32,7 +34,7 @@ public class SetUserBanned extends Command{
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

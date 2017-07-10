@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-	/*	String request = "sign_up&barkou@mail.ru&password";
+/*		String request = "sign_up&barkou@mail.ru2&password2";
 		Controller controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));*/
 		
@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("Response is: " + controller.executeTask(request));
 		
 	
-		 request = "order_book&1";
+		 request = "get_all_available_books&";
 		 controller = new Controller();
 		System.out.println("Response is: " + controller.executeTask(request));
 

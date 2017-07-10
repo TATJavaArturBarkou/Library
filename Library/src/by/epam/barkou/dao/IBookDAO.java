@@ -8,10 +8,6 @@ import by.epam.barkou.dao.exception.DAOException;
 public interface IBookDAO {
 	void addBook(Book book) throws DAOException;
 
-	void deleteBook(long idBook) throws DAOException;
-
-	void delete(Book book) throws DAOException;
-
 	void updateBook(Book book) throws DAOException;
 
 	ArrayList<Book> getAllAvailableBooks() throws DAOException;

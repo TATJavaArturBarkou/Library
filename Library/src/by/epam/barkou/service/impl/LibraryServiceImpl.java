@@ -15,13 +15,15 @@ public class LibraryServiceImpl implements ILibraryService {
 	IBookDAO bookDAO = daoObjectFactory.getBookDAO();
 	boolean response;
 	
+	private final static String ERROR_INCORRECT_BOOK_DATA = "Incorrect book data";
+	
 	@Override
 	public void addNewBook(Book book) throws ServiceException {
 
 		// check parameters, e.g. length, special symbols
 
 		if (book == null || book.getName().isEmpty()) {
-			throw new ServiceException("Incorrect book data");
+			throw new ServiceException(ERROR_INCORRECT_BOOK_DATA);
 		}
 		try {
 			bookDAO.addBook(book);
@@ -37,7 +39,7 @@ public class LibraryServiceImpl implements ILibraryService {
 	public void updateBook(Book book) throws ServiceException {
 		// check parameters, e.g. length, special symbols
 		if (book == null || book.getName().isEmpty()) {
-			throw new ServiceException("Incorrect book data");
+			throw new ServiceException(ERROR_INCORRECT_BOOK_DATA);
 		}
 		try {
 			bookDAO.updateBook(book);

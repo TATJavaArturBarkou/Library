@@ -8,22 +8,22 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class AddBook extends Command {
 
-	private final int ACCESS_LEVEL = 2;
-	private final int BOOK_NAME = 1;
+	private final int accessLevel = 2;
+	private final int bookName = 1;
 	private String response = null;
 	
 	@Override
 	public String execute(String request) {
 
 		String[] requestData = request.split(SPLITTER);
-		Book book = new Book(requestData[BOOK_NAME]);
+		Book book = new Book(requestData[bookName]);
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ILibraryService libraryService = factory.getLibraryService();
 
 		try {
 
 			libraryService.addNewBook(book);
-			response = "Book has been added";
+			response = "Book has been added successfully";
 
 		} catch (ServiceException e) {
 			response = "Unable to add book";
@@ -35,7 +35,7 @@ public class AddBook extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

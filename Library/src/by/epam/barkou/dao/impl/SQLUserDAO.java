@@ -1,111 +1,210 @@
 package by.epam.barkou.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import by.epam.barkou.bean.User;
-
 import by.epam.barkou.dao.IUserDAO;
 import by.epam.barkou.dao.exception.DAOException;
-import by.epam.barkou.dao.util.DBWorker;
+import by.epam.barkou.dao.newUtil.SQLConnection;
 
 public class SQLUserDAO implements IUserDAO {
-	private DBWorker db = DBWorker.getInstance();
-	User user;
 
+	private SQLConnection sqlConnection = SQLConnection.getInstance();
+
+	private final static String SQL_SIGN_IN = "SELECT id, email, password, role, banned FROM users where email=? and password=?";
+	private final static String SQL_SIGN_UP = "INSERT INTO users (email, password) values (?,?)";
+	private final static String SQL_UPDATE_PROFILE = "UPDATE users SET email=?, password=? where id=?";
+	private final static String SQL_ADD_ADMIN_RIGHTS = "UPDATE users SET role=2 where id=?";
+	private final static String SQL_SET_BANNED = "UPDATE users SET banned=? where id=?";
+
+
+	
 	@Override
-	public User signIn(String login, String password) throws DAOException {
-
-		String query;
-
-		query = "SELECT * FROM `users` where email='" + login + "' and password='" + password + "';";
+	public User signIn(String login, String encryptedPassword) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
+		ResultSet resultSet = null;
+		User user = null;
+		int userEmailIndex = 1;
+		int userPasswordIndex = 2;
+		String userId = "id";
+		String email = "email";
+		String password = "password";
+		String role = "role";
 
 		try {
 
-			ResultSet db_data = this.db.getDBData(query);
-			while (db_data.next()) {
+			ps = connection.prepareStatement(SQL_SIGN_IN);
 
-				user = new User(db_data.getString("id"), db_data.getString("email"), db_data.getString("password"),
-						Integer.parseInt(db_data.getString("role")));
+			ps.setString(userEmailIndex, login);
+			ps.setString(userPasswordIndex, encryptedPassword);
+
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+
+				user = new User(resultSet.getString(userId), resultSet.getString(email), resultSet.getString(password),
+						Integer.parseInt(resultSet.getString(role)));
 
 			}
 
-			return user;
+		} catch (SQLException e) {
 
-		} catch (NumberFormatException | SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Error while making sql operation");
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+					resultSet.close();
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
+		}
+		return user;
+	}
+
+	@Override
+	public void signUp(User user) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
+		int userEmailIndex = 1; 
+		int userPasswordIndex = 2;
+
+		try {
+
+			ps = connection.prepareStatement(SQL_SIGN_UP);
+
+			ps.setString(userEmailIndex, user.getEmail());
+			ps.setString(userPasswordIndex, user.getPassword());
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
+		}
+		 
+	}
+
+
+	@Override
+	public void updateProfile(User user) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
+		int userEmailIndex = 1; 
+		int userPasswordIndex = 2;
+		int userIdIndex = 3;
+		try {
+
+			ps = connection.prepareStatement(SQL_UPDATE_PROFILE);
+
+			ps.setString(userEmailIndex, user.getEmail());
+			ps.setString(userPasswordIndex, user.getPassword());
+			ps.setString(userIdIndex, user.getId());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
 		}
 	}
 
 	@Override
-	public String signUp(User user) throws DAOException {
-		String query;
+	public void addAdminRights(String string) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
 
-		query = "INSERT INTO `users` (`email`,`password`) VALUES ('" + user.getEmail() + "', '" + user.getPassword()
-				+ "')";
+		try {
 
-		Integer affected_rows = this.db.changeDBData(query);
+			ps = connection.prepareStatement(SQL_ADD_ADMIN_RIGHTS);
 
-		if (affected_rows > 0) {
-			//
-		} else {
-			throw new DAOException("Error while making sql operation");
-		}
-		return "User is registred successfully";
-	}
-
-	@Override
-	public void signOut(String login) throws DAOException {
-
-	}
-
-	@Override
-	public String updateProfile(User user) throws DAOException {
-		String query;
-
-		query = "UPDATE `users` SET `email` = '" + user.getEmail() + "',`password` = '" + user.getPassword() + "' WHERE `id` = " + user.getId();
-
-		Integer affected_rows = this.db.changeDBData(query);
-
-		if (affected_rows > 0) {
+			int id = Integer.parseInt(string);
+			int userIdIndex = 1;
 			
-		} else {
-			throw new DAOException("Error while making sql operation");
+			ps.setInt(userIdIndex, id);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
 		}
-		return "User is updated successfully";
+		
 	}
 
 	@Override
-	public String addAdminRights(String string) throws DAOException {
-		String query;
+	public void setUserBanned(String idValue, String bannedValue) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
 
-		query = "UPDATE `users` SET `role` = '2' WHERE `id` = " + Integer.parseInt(string);
+		try {
 
-		Integer affected_rows = this.db.changeDBData(query);
+			ps = connection.prepareStatement(SQL_SET_BANNED);
 
-		if (affected_rows > 0) {
+			int id = Integer.parseInt(idValue);
+			int banned = Integer.parseInt(bannedValue);
+			int userBannedIndex = 1;
+			int userIdIndex = 2;
 			
-		} else {
-			throw new DAOException("Error while making sql operation");
-		}
-		return "User rights are updated successfully";
-	}
-
-	@Override
-	public String setUserBanned(String id, String bannedValue) throws DAOException {
-		String query;
-
-		query = "UPDATE `users` SET `banned` = '" + Integer.parseInt(bannedValue) + "' WHERE `id` = " + Integer.parseInt(id);
-
-		Integer affected_rows = this.db.changeDBData(query);
-
-		if (affected_rows > 0) {
 			
-		} else {
-			throw new DAOException("Error while making sql operation");
+			ps.setInt(userBannedIndex, banned);
+			ps.setInt(userIdIndex, id);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
 		}
-		return "User is updated successfully";
+	
 	}
 
 }

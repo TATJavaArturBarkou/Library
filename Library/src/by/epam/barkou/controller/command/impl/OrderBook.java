@@ -9,18 +9,18 @@ import by.epam.barkou.service.factory.ServiceFactory;
 
 public class OrderBook extends Command {
 
-	private final int ACCESS_LEVEL = 1;
-	private final int BOOK_ID = 1;
+	private final int accessLevel = 1;
+	private final int bookId = 1;
 	
-	private final int FIRST_USER = 0;
+	private final int firstUser = 0;
 	private String response = null;
 
 	@Override
 	public String execute(String request) {
 
 		String[] requestData = request.split(SPLITTER);
-
-		Order order = new Order(Controller.authorized_users.get(FIRST_USER).getId(), requestData[BOOK_ID]);
+		String userId= Controller.authorized_users.get(firstUser).getId();
+		Order order = new Order(userId, requestData[bookId]);
 
 		ServiceFactory factory = ServiceFactory.getInstance();
 		IOrderService iOrderService = factory.getIOrderService();
@@ -39,7 +39,7 @@ public class OrderBook extends Command {
 
 	@Override
 	public int getAccessLevel() {
-		return this.ACCESS_LEVEL;
+		return this.accessLevel;
 	}
 
 }

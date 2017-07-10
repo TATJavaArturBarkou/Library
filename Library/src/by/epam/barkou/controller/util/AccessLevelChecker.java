@@ -6,8 +6,11 @@ import by.epam.barkou.controller.command.Command;
 
 public class AccessLevelChecker {
 
+	private static final int FIRST_USER = 0;
+
 	public static boolean checkAccessLevel(Command executionCommand) {
-		if (executionCommand.getAccessLevel() > 0) {
+		int guestAccess = 0;
+		if (executionCommand.getAccessLevel() > guestAccess) {
 
 			return checkAuthorization(executionCommand);
 
@@ -21,7 +24,7 @@ public class AccessLevelChecker {
 	public static boolean checkAuthorization(Command executionCommand) {
 
 		if (!Controller.authorized_users.isEmpty()) {
-			if (Controller.authorized_users.get(0).getRole() >= executionCommand.getAccessLevel()) {
+			if (Controller.authorized_users.get(FIRST_USER).getRole() >= executionCommand.getAccessLevel()) {
 				return true;
 			} else {
 				return false;
@@ -31,8 +34,9 @@ public class AccessLevelChecker {
 		}
 
 	}
+
 	public static boolean checkUserIsYouAre(User user) {
-		return Controller.authorized_users.get(0).getEmail().equals(user.getEmail());
+		return Controller.authorized_users.get(FIRST_USER).getEmail().equals(user.getEmail());
 	}
 
 }

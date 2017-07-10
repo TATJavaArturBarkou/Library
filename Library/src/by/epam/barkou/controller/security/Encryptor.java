@@ -10,9 +10,14 @@ public class Encryptor {
 	public static String encrypt(String passwordToHash) throws ControllerException {
 
 		String generatedPassword = null;
+		String enctyptorType = "MD5";
+		int beginIndex = 1;
+		int radix = 16;
+		int bitwiseValue = 0xff;
+		int additiveValue = 0x100;
 		try {
 
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance(enctyptorType);
 
 			md.update(passwordToHash.getBytes());
 
@@ -20,7 +25,8 @@ public class Encryptor {
 
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+				sb.append(
+						Integer.toString((bytes[i] & bitwiseValue) + additiveValue, radix).substring(beginIndex));
 			}
 
 			generatedPassword = sb.toString();
