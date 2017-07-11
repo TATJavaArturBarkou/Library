@@ -11,4 +11,6 @@ public interface IBookDAO {
 	void updateBook(Book book) throws DAOException;
 
 	ArrayList<Book> getAllAvailableBooks() throws DAOException;
+
+	String getAvailableBook(Book book) throws DAOException;
 }

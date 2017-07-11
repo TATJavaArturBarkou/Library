@@ -13,5 +13,7 @@ public interface ILibraryService {
 
 	ArrayList<Book> getAllAvailableBooks() throws ServiceException;
 
+	String getAvailableBook(Book book) throws ServiceException;
+
 	
 }

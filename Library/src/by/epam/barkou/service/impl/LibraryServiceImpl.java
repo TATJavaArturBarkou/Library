@@ -61,6 +61,16 @@ public class LibraryServiceImpl implements ILibraryService {
 		
 	}
 
+	@Override
+	public String getAvailableBook(Book book) throws ServiceException {
+		try {
+			return bookDAO.getAvailableBook(book);
+			
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
 
 
 }

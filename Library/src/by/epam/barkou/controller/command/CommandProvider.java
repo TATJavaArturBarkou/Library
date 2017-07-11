@@ -6,11 +6,13 @@ import java.util.Map;
 import by.epam.barkou.controller.command.impl.AddAdminRights;
 import by.epam.barkou.controller.command.impl.AddBook;
 import by.epam.barkou.controller.command.impl.GetAllAvailableBooks;
+import by.epam.barkou.controller.command.impl.GetAvailableBook;
 import by.epam.barkou.controller.command.impl.OrderBook;
 import by.epam.barkou.controller.command.impl.SetUserBanned;
 import by.epam.barkou.controller.command.impl.ShowProfile;
 import by.epam.barkou.controller.command.impl.SignUp;
 import by.epam.barkou.controller.command.impl.SignIn;
+import by.epam.barkou.controller.command.impl.SignOut;
 import by.epam.barkou.controller.command.impl.UpdateBook;
 import by.epam.barkou.controller.command.impl.UpdateProfile;
 import by.epam.barkou.controller.command.impl.WrongRequest;
@@ -30,6 +32,8 @@ public class CommandProvider {
 		repositiry.put(CommandName.ADD_ADMIN_RIGHTS, new AddAdminRights());
 		repositiry.put(CommandName.SET_USER_BANNED, new SetUserBanned());
 		repositiry.put(CommandName.ORDER_BOOK, new OrderBook());
+		repositiry.put(CommandName.SIGN_OUT, new SignOut());
+		repositiry.put(CommandName.GET_AVAILABLE_BOOK, new GetAvailableBook());
 	}
 
 	public Command getCommand(String name) {

@@ -1,8 +1,10 @@
 package by.epam.barkou.controller.command.impl;
 
+import by.epam.barkou.bean.Book;
 import by.epam.barkou.bean.Order;
 import by.epam.barkou.controller.Controller;
 import by.epam.barkou.controller.command.Command;
+import by.epam.barkou.service.ILibraryService;
 import by.epam.barkou.service.IOrderService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
@@ -19,16 +21,24 @@ public class OrderBook extends Command {
 	public String execute(String request) {
 
 		String[] requestData = request.split(SPLITTER);
-		String userId = Controller.authorized_users.get(firstUser).getId();
-		Order order = new Order(userId, requestData[bookId]);
-
 		ServiceFactory factory = ServiceFactory.getInstance();
-		IOrderService iOrderService = factory.getIOrderService();
 
 		try {
+			ILibraryService iLibraryService = factory.getLibraryService();
+			Book book = new Book(requestData[bookId]);
+			Object object = iLibraryService.getAvailableBook(book);
 
-			iOrderService.orderBook(order);
-			response = "Book has been ordered";
+			if (object != null) {
+				String userId = Controller.authorized_users.get(firstUser).getId();
+				Order order = new Order(userId, requestData[bookId]);
+				IOrderService iOrderService = factory.getIOrderService();
+
+				iOrderService.orderBook(order);
+				response = "Book has been ordered";
+
+			} else {
+				response = "Book not exists";
+			}
 
 		} catch (ServiceException e) {
 			response = "Unable to order book";
