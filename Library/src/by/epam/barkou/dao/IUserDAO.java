@@ -13,4 +13,6 @@ public interface IUserDAO {
 	void addAdminRights(String string) throws DAOException;
 
 	void setUserBanned(String id, String bannedValue) throws DAOException;
+
+	User getUser(String string) throws DAOException;
 }

@@ -14,4 +14,6 @@ public interface IClientService {
 
 	void setUserBanned(String string, String string2)throws ServiceException;
 
+	User getUser(String string) throws ServiceException;
+
 }

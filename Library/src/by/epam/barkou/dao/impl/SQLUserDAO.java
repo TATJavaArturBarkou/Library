@@ -19,6 +19,7 @@ public class SQLUserDAO implements IUserDAO {
 	private final static String SQL_UPDATE_PROFILE = "UPDATE users SET email=?, password=? WHERE id=?";
 	private final static String SQL_ADD_ADMIN_RIGHTS = "UPDATE users SET role=2 WHERE id=?";
 	private final static String SQL_SET_BANNED = "UPDATE users SET banned=? WHERE id=?";
+	private final static String SQL_GET_USER = "SELECT id, email, password, role, banned FROM users WHERE id=?";
 
 
 	
@@ -205,6 +206,53 @@ public class SQLUserDAO implements IUserDAO {
 			}
 		}
 	
+	}
+
+	@Override
+	public User getUser(String string) throws DAOException {
+		Connection connection = sqlConnection.getConnection();
+		PreparedStatement ps = null;
+		ResultSet resultSet = null;
+		User user = null;
+		int userIdIndex = 1;
+
+		String userId = "id";
+		String email = "email";
+		String password = "password";
+		String role = "role";
+
+		try {
+
+			ps = connection.prepareStatement(SQL_GET_USER);
+
+			ps.setString(userIdIndex, string);
+			
+
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+
+				user = new User(resultSet.getString(userId), resultSet.getString(email), resultSet.getString(password),
+						Integer.parseInt(resultSet.getString(role)));
+
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+			if (ps != null || connection != null) {
+				try {
+					resultSet.close();
+					ps.close();
+					connection.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
+			}
+		}
+		return user;
 	}
 
 }

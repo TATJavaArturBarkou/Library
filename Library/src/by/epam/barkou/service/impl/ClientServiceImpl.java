@@ -74,4 +74,18 @@ public class ClientServiceImpl implements IClientService {
 	
 	}
 
+
+	@Override
+	public User getUser(String string) throws ServiceException {
+		if (string == null || string.isEmpty()) {
+			throw new ServiceException(ERROR_INCORRECT_LOGIN);
+		}
+		try {
+			 user = userDAO.getUser(string);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return user;
+	}
+
 }

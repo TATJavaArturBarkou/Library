@@ -7,36 +7,29 @@ import by.epam.barkou.service.IClientService;
 import by.epam.barkou.service.exception.ServiceException;
 import by.epam.barkou.service.factory.ServiceFactory;
 
-public class SetUserBanned extends Command {
-
-	private final int accessLevel = 2;
-	private final int userId = 1;
-	private final int bannedValue = 2;
-	private String response = null;
+public class GetUser extends Command {
 	private User user;
+	private final int accessLevel = 2;
+	private final int id = 1;
+	private String response = null;
 
 	@Override
 	public String execute(String request) throws ControllerException {
 		String[] requestData = request.split(SPLITTER);
+
 		ServiceFactory factory = ServiceFactory.getInstance();
 		IClientService clientService = factory.getClientService();
+
 		try {
 
-			user = clientService.getUser(requestData[userId]);
+			user = clientService.getUser(requestData[id]);
 
-			if (user != null) {
-				clientService.setUserBanned(requestData[userId], requestData[bannedValue]);
-
-				response = "User is updated successfully";
-			} else {
-				response = "User isn't exists";
-			}
+			response = user.getEmail();
 
 		} catch (ServiceException e) {
-			response = "Unable ban/unban user";
+			response = "Unable to get user";
 			System.out.println("log: " + e.getMessage());
 		}
-
 		return response;
 	}
 

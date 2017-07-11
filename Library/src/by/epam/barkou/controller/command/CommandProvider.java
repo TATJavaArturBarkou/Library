@@ -7,6 +7,7 @@ import by.epam.barkou.controller.command.impl.AddAdminRights;
 import by.epam.barkou.controller.command.impl.AddBook;
 import by.epam.barkou.controller.command.impl.GetAllAvailableBooks;
 import by.epam.barkou.controller.command.impl.GetAvailableBook;
+import by.epam.barkou.controller.command.impl.GetUser;
 import by.epam.barkou.controller.command.impl.OrderBook;
 import by.epam.barkou.controller.command.impl.SetUserBanned;
 import by.epam.barkou.controller.command.impl.ShowProfile;
@@ -34,6 +35,7 @@ public class CommandProvider {
 		repositiry.put(CommandName.ORDER_BOOK, new OrderBook());
 		repositiry.put(CommandName.SIGN_OUT, new SignOut());
 		repositiry.put(CommandName.GET_AVAILABLE_BOOK, new GetAvailableBook());
+		repositiry.put(CommandName.GET_USER, new GetUser());
 	}
 
 	public Command getCommand(String name) {
