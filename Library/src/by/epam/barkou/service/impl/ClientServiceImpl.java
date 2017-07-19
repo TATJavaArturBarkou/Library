@@ -8,9 +8,9 @@ import by.epam.barkou.service.IClientService;
 import by.epam.barkou.service.exception.ServiceException;
 
 public class ClientServiceImpl implements IClientService {
-	DAOFactory daoObjectFactory = DAOFactory.getInstance();
+	DAOFactory daoObjectFactory = DAOFactory.getInstance();// куда делись атрибуты доступа?
 	IUserDAO userDAO = daoObjectFactory.getUserDAO();
-	User user;
+	User user;// наличие этого поля в полях экземпляра класса является логической ошибкой
 	
 	private final static String ERROR_INCORRECT_LOGIN = "Incorrect login";
 	
@@ -33,6 +33,7 @@ public class ClientServiceImpl implements IClientService {
 	@Override
 	public void signUp(User user) throws ServiceException {
 		// check parameters, e.g. length, special symbols
+		// ну и кто мешал написать таки здесь валидацию?
 		try {
 			userDAO.signUp(user);
 		} catch (DAOException e) {
