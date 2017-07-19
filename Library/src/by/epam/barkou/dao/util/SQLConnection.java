@@ -20,7 +20,8 @@ public class SQLConnection {
 		Connection connection = null;
 
 		try {
-			Class.forName(DRIVER_NAME).newInstance();
+			Class.forName(DRIVER_NAME).newInstance();// логическая ошибка написания
+			// зачем столько раз пытаться загружать драйвер?
 			connection = DriverManager.getConnection(JDBC_PATH);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 			throw new DAOException(e);
