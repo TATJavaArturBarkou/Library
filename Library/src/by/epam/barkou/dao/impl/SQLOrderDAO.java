@@ -34,7 +34,7 @@ public class SQLOrderDAO implements IOrderDAO{
 		} finally {
 			if (ps != null || connection != null) {
 				try {
-					ps.close();
+					ps.close();// логическая ошибка при написании этих двух операторов в одном трай блоке
 					connection.close();
 				} catch (SQLException e) {
 					throw new DAOException(e);

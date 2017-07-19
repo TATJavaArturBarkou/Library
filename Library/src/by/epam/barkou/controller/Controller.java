@@ -33,7 +33,9 @@ public class Controller {
 			}
 
 		} catch (ControllerException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage());// почему мы просто гасим исключение
+			// где логгерры
+			// и где формирование ответа клиеты в случае данного исключения?
 		}
 
 		return response;
